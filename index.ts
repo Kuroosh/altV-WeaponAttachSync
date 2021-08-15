@@ -90,6 +90,15 @@ alt.on("gameEntityDestroy", entity => {
     delete nearbyPlayers[entity.id];
 });
 
+alt.on('streamSyncedMetaChange', (entity: alt.BaseObject, key: string, val: Object, oldVal: Object) => {
+    if (!(entity instanceof alt.Player)) return;
+    if (weaponSlots.includes(parseInt(key))) {
+        destroyPlayerObjects(entity);
+        delete nearbyPlayers[entity.id];
+    }
+});
+
+
 
 
 alt.setInterval(() => {
